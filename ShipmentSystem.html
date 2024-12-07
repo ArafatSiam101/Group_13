@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tracking Page</title>
+  <link rel="stylesheet" href="ShipmentSystem.css">
+</head>
+
+<body>
+  <header class="header">
+    <h1>Shipment System</h1>
+  </header>
+
+  <main class="tracking-page">
+    <!-- Search Bar -->
+    <section class="tracking-search">
+      <h2>Track Your Transport</h2>
+      <input type="text" placeholder="Enter ProductID..." />
+      <button>Track</button>
+    </section>
+
+    <!-- Order Status -->
+    <section class="shipment-status">
+      <h2>Shipment Status</h2>
+      <div class="status-timeline">
+        <div class="status-step completed">Order Placed</div>
+        <div class="status-step completed">Dispatched</div>
+        <div class="status-step current">In Transit</div>
+        <div class="status-step">Out for Delivery</div>
+        <div class="status-step">Delivered</div>
+      </div>
+    </section>
+
+    <!-- Recent Shipments -->
+    <section class="recent-shipments">
+      <h2>Recent Shipments</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>ProductID</th>
+            <th>ProductName</th>
+            <th>Status</th>
+            <th>Delivery Date</th>
+            <th>Location</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>123456</td>
+            <td>Crops</td>
+            <td>In Transit</td>
+            <td>Nov 30, 2024</td>
+            <td>New York, NY</td>
+          </tr>
+          <tr>
+            <td>234567</td>
+            <td>Vegetables</td>
+            <td>Delivered</td>
+            <td>Nov 28, 2024</td>
+            <td>-</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Link to Google Map -->
+    <section class="map-section">
+      <h2>Shipment Location</h2>
+      <p>Click the link below to view the shipment tracking map:</p>
+      <a href="https://www.google.com/maps/search/Shipment+tracking++map+bangladesh/@23.8131314,90.4199494,13.9z?authuser=2&entry=ttu&g_ep=EgoyMDI0MTEyNC4xIKXMDSoASAFQAw%3D%3D"
+        target="_blank" class="map-link">
+        Open Shipment Map
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2024 Transportation System</p>
+  </footer>
+</body>
+
+</html>

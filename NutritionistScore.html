@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Quality Dashboard</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+  <link rel="stylesheet" href="NutritionistScore.css"> <!-- Link to external CSS -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js Library -->
 </head>
 
@@ -195,7 +195,61 @@
         chartInstance.destroy();
       }
 
-      // Create a new chart
+      // Define color palettes for different products
+      const colorPalettes = {
+        "Carrot": [
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 206, 86, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(153, 102, 255, 0.6)',
+          'rgba(255, 159, 64, 0.6)'
+        ],
+        "Capsicum": [
+          'rgba(255, 159, 64, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(153, 102, 255, 0.6)',
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(255, 206, 86, 0.6)'
+        ],
+        "Broccoli": [
+          'rgba(153, 102, 255, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(255, 159, 64, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(255, 206, 86, 0.6)'
+        ],
+        "Spinach": [
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(255, 159, 64, 0.6)',
+          'rgba(153, 102, 255, 0.6)',
+          'rgba(255, 206, 86, 0.6)'
+        ],
+        "Cucumber": [
+          'rgba(75, 192, 192, 0.6)',
+          'rgba(153, 102, 255, 0.6)',
+          'rgba(255, 159, 64, 0.6)',
+          'rgba(255, 99, 132, 0.6)',
+          'rgba(54, 162, 235, 0.6)',
+          'rgba(255, 206, 86, 0.6)'
+        ]
+      };
+
+      // Select color palette based on the product name
+      const selectedColors = colorPalettes[productName] || [
+        'rgba(255, 99, 132, 0.6)',
+        'rgba(54, 162, 235, 0.6)',
+        'rgba(255, 206, 86, 0.6)',
+        'rgba(75, 192, 192, 0.6)',
+        'rgba(153, 102, 255, 0.6)',
+        'rgba(255, 159, 64, 0.6)'
+      ];
+
+      // Create a new chart instance with the selected colors
       chartInstance = new Chart(ctx, {
         type: 'bar',
         data: {
@@ -203,22 +257,8 @@
           datasets: [{
             label: `Quality Metrics for ${productName}`,
             data: data,
-            backgroundColor: [
-              'rgba(255, 99, 132, 0.6)',
-              'rgba(54, 162, 235, 0.6)',
-              'rgba(255, 206, 86, 0.6)',
-              'rgba(75, 192, 192, 0.6)',
-              'rgba(153, 102, 255, 0.6)',
-              'rgba(255, 159, 64, 0.6)'
-            ],
-            borderColor: [
-              'rgba(255, 99, 132, 1)',
-              'rgba(54, 162, 235, 1)',
-              'rgba(255, 206, 86, 1)',
-              'rgba(75, 192, 192, 1)',
-              'rgba(153, 102, 255, 1)',
-              'rgba(255, 159, 64, 1)'
-            ],
+            backgroundColor: selectedColors,
+            borderColor: selectedColors.map(color => color.replace('0.6', '1')), // Make border darker
             borderWidth: 1
           }]
         },
@@ -226,6 +266,19 @@
           scales: {
             y: {
               beginAtZero: true
+            }
+          },
+          responsive: true,
+          plugins: {
+            title: {
+              display: true,
+              text: `Quality Metrics for ${productName}`,
+              font: {
+                size: 16
+              }
+            },
+            legend: {
+              display: false
             }
           }
         }

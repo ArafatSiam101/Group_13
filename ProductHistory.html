@@ -4,24 +4,25 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Harvest Management Table</title>
-  <link rel="stylesheet" href="HarvestLot.css">
+  <title>HTML Table with Edit and Delete</title>
+  <link rel="stylesheet" href="ProductHistory.css"> <!-- Link to external CSS -->
 </head>
 
 <body>
-  <h1>Harvest Management Table</h1>
-  <table id="harvestTable">
+  <h1>ProductHistoryRecord</h1>
+  <table id="productTable">
     <tr>
       <th>Product Name</th>
-      <th>Harvest Quantity</th>
-      <th>Harvest Date</th>
+      <th>Breed</th>
+      <th>Product Weight</th>
+      <th>Price</th>
       <th>Actions</th>
     </tr>
-    <!-- Dummy Data -->
     <tr>
       <td>Carrot</td>
-      <td>150 kg</td>
-      <td>2024-11-20</td>
+      <td>Hybrid</td>
+      <td>1 kg</td>
+      <td>17</td>
       <td>
         <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
         <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
@@ -29,8 +30,9 @@
     </tr>
     <tr>
       <td>Capsicum</td>
-      <td>120 kg</td>
-      <td>2024-11-18</td>
+      <td>Non-Hybrid</td>
+      <td>5 kg</td>
+      <td>12</td>
       <td>
         <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
         <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
@@ -38,8 +40,9 @@
     </tr>
     <tr>
       <td>Broccoli</td>
-      <td>200 kg</td>
-      <td>2024-11-15</td>
+      <td>Hybrid</td>
+      <td>2 kg</td>
+      <td>34</td>
       <td>
         <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
         <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
@@ -47,8 +50,9 @@
     </tr>
     <tr>
       <td>Spinach</td>
-      <td>180 kg</td>
-      <td>2024-11-22</td>
+      <td>Non-Hybrid</td>
+      <td>1.5 kg</td>
+      <td>22</td>
       <td>
         <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
         <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
@@ -56,8 +60,9 @@
     </tr>
     <tr>
       <td>Cucumber</td>
-      <td>100 kg</td>
-      <td>2024-11-25</td>
+      <td>Hybrid</td>
+      <td>3 kg</td>
+      <td>15</td>
       <td>
         <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
         <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
@@ -111,13 +116,13 @@
 
     // Function to add a new row
     function addRow() {
-      const table = document.getElementById("harvestTable");
+      const table = document.getElementById("productTable");
       const row = table.insertRow(-1);
-      const cells = ["", "", "", ""];
+      const cells = ["", "", "", "", ""];
 
       cells.forEach((_, index) => {
         const cell = row.insertCell(index);
-        if (index === 3) {
+        if (index === 4) {
           cell.innerHTML = `
             <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
             <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>

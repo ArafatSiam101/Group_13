@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Products</title>
+  <link rel="stylesheet" href="consumer.css">
+</head>
+
+<body>
+  <header class="header">
+    <h1>Order Products</h1>
+  </header>
+  <main class="order-page">
+    <!-- Add Product Section -->
+    <section class="add-product">
+      <h2>Add New Product</h2>
+      <form id="addProductForm">
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" required>
+
+        <label for="productPrice">Price (USD):</label>
+        <input type="number" id="productPrice" min="0.01" step="0.01" required>
+
+        <button type="submit">Add Product</button>
+      </form>
+    </section>
+
+    <!-- Product List -->
+    <section class="product-list">
+      <h2>Cart</h2>
+      <input type="text" id="searchInput" placeholder="Search by product name">
+      <table>
+        <thead>
+          <tr>
+            <th>Product Name</th>
+            <th>Price (USD)</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="productTableBody">
+          <tr>
+            <td>Apples</td>
+            <td>$2.50</td>
+            <td>
+              <button class="edit-btn">Edit</button>
+              <button class="delete-btn">Delete</button>
+              <button class="place-order-btn">Place Order</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Bananas</td>
+            <td>$1.20</td>
+            <td>
+              <button class="edit-btn">Edit</button>
+              <button class="delete-btn">Delete</button>
+              <button class="place-order-btn">Place Order</button>
+            </td>
+          </tr>
+          <tr>
+            <td>Oranges</td>
+            <td>$3.00</td>
+            <td>
+              <button class="edit-btn">Edit</button>
+              <button class="delete-btn">Delete</button>
+              <button class="place-order-btn">Place Order</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- Location Tracking -->
+    <section class="location-tracking">
+      <h2>Trace Your Location</h2>
+      <button id="traceLocationBtn">Trace Location</button>
+      <p id="locationOutput">Your location will be displayed here.</p>
+    </section>
+  </main>
+  <footer class="footer">
+    <p>&copy; 2024 Dashboard </p>
+  </footer>
+
+  <script>
+    document.getElementById('traceLocationBtn').addEventListener('click', () => {
+      const output = document.getElementById('locationOutput');
+
+      if (!navigator.geolocation) {
+        output.textContent = "Geolocation is not supported by your browser.";
+        return;
+      }
+
+      output.textContent = "Locating...";
+
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const latitude = position.coords.latitude;
+          const longitude = position.coords.longitude;
+          output.innerHTML = `Latitude: ${latitude}, Longitude: ${longitude} <br>
+          <a href="https://www.google.com/maps?q=${latitude},${longitude}" target="_blank">View on Google Maps</a>`;
+        },
+        (error) => {
+          output.textContent = "Unable to retrieve location.";
+        }
+      );
+    });
+  </script>
+</body>
+
+</html>

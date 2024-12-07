@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Product Nutrition Dashboard</title>
-  <link rel="stylesheet" href="styles.css"> <!-- Link to external CSS -->
+  <link rel="stylesheet" href="NutritionistGrade.css"> <!-- Link to external CSS -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js Library -->
 </head>
 
@@ -146,7 +146,7 @@
       cells.forEach((_, index) => {
         const cell = row.insertCell(index);
         if (index === 5) {
-          cell.innerHTML = `
+          cell.innerHTML = `  
             <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
             <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
             <button class="btn btn-view" onclick="viewPieChart(this)">View</button>

@@ -1,0 +1,134 @@
+/* General Styling */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f4;
+}
+
+/* Header Styling */
+.header {
+  background-color: #0078d7;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+/* Main Content Section */
+.tracking-page {
+  padding: 20px;
+}
+
+/* Tracking Search Section */
+.tracking-search {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.tracking-search input {
+  padding: 10px;
+  width: 300px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.tracking-search button {
+  padding: 10px 20px;
+  background-color: #0078d7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.tracking-search button:hover {
+  background-color: #005bb5;
+}
+
+/* Shipment Status Section */
+.shipment-status {
+  margin-bottom: 20px;
+}
+
+.status-timeline {
+  display: flex;
+  justify-content: space-between;
+}
+
+.status-step {
+  flex: 1;
+  text-align: center;
+  padding: 10px;
+  margin: 0 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #f4f4f4;
+}
+
+.status-step.completed {
+  background-color: #4caf50;
+  color: white;
+}
+
+.status-step.current {
+  background-color: #ff9800;
+  color: white;
+}
+
+/* Recent Shipments Section */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+table th, table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+table th {
+  background-color: #0078d7;
+  color: white;
+}
+
+/* Map Section */
+.map-section {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.map-link {
+  font-size: 18px;
+  color: #0078d7;
+  text-decoration: none;
+  padding: 10px 20px;
+  background-color: #f4f4f4;
+  border-radius: 4px;
+  border: 1px solid #0078d7;
+}
+
+.map-link:hover {
+  background-color: #0078d7;
+  color: white;
+}
+
+/* Footer Styling */
+.footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 10px 0;
+  margin-top: 20px;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+}
