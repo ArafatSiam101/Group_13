@@ -30,7 +30,6 @@
       <td>
         <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
         <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
-        <button class="btn btn-view" onclick="viewPieChart(this)">View</button>
       </td>
     </tr>
     <tr>
@@ -42,7 +41,6 @@
       <td>
         <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
         <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
-        <button class="btn btn-view" onclick="viewPieChart(this)">View</button>
       </td>
     </tr>
     <tr>
@@ -54,7 +52,6 @@
       <td>
         <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
         <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
-        <button class="btn btn-view" onclick="viewPieChart(this)">View</button>
       </td>
     </tr>
     <tr>
@@ -66,7 +63,6 @@
       <td>
         <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
         <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
-        <button class="btn btn-view" onclick="viewPieChart(this)">View</button>
       </td>
     </tr>
     <tr>
@@ -78,21 +74,12 @@
       <td>
         <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
         <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
-        <button class="btn btn-view" onclick="viewPieChart(this)">View</button>
       </td>
     </tr>
   </table>
   <button onclick="addRow()">Add Row</button>
-  <button onclick="assignGrades()">Assign Grades</button>
-
-  <!-- Pie Chart Section -->
-  <div style="width: 40%; margin: 20px auto; display: none;" id="chartContainer">
-    <canvas id="productChart" width="300" height="300"></canvas> <!-- Set fixed width and height -->
-  </div>
 
   <script>
-    let pieChartInstance;
-
     // Function to delete a row
     function deleteRow(button) {
       const row = button.parentElement.parentElement;
@@ -105,11 +92,26 @@
       const cells = row.querySelectorAll("td:not(:last-child)");
 
       cells.forEach((cell, index) => {
-        if (index !== 1) { // Skip the Grade column
+        if (index !== 1) { // Skip the Grade column for editing
           const currentValue = cell.innerHTML;
           const input = document.createElement("input");
           input.type = "text";
           input.value = currentValue;
+          cell.innerHTML = "";
+          cell.appendChild(input);
+        } else { // Allow editing of the Grade column
+          const currentValue = cell.innerText;
+          const input = document.createElement("select");
+          const options = ["A", "B", "C", "D", "E"];
+          options.forEach(option => {
+            const optionElement = document.createElement("option");
+            optionElement.value = option;
+            optionElement.innerText = option;
+            if (option === currentValue) {
+              optionElement.selected = true;
+            }
+            input.appendChild(optionElement);
+          });
           cell.innerHTML = "";
           cell.appendChild(input);
         }
@@ -124,7 +126,7 @@
     // Function to save an edited row
     function saveRow(button) {
       const row = button.parentElement.parentElement;
-      const inputs = row.querySelectorAll("td input");
+      const inputs = row.querySelectorAll("td input, td select");
 
       inputs.forEach(input => {
         const cell = input.parentElement;
@@ -146,81 +148,22 @@
       cells.forEach((_, index) => {
         const cell = row.insertCell(index);
         if (index === 5) {
-          cell.innerHTML = `  
+          cell.innerHTML = `
             <button class="btn btn-edit" onclick="editRow(this)">Edit</button>
             <button class="btn btn-delete" onclick="deleteRow(this)">Delete</button>
-            <button class="btn btn-view" onclick="viewPieChart(this)">View</button>
           `;
+        } else if (index === 1) { // Grade column
+          const input = document.createElement("select");
+          const options = ["A", "B", "C", "D", "E"];
+          options.forEach(option => {
+            const optionElement = document.createElement("option");
+            optionElement.value = option;
+            optionElement.innerText = option;
+            input.appendChild(optionElement);
+          });
+          cell.appendChild(input);
         } else {
           cell.innerHTML = `<input type="text" placeholder="Enter value">`;
-        }
-      });
-    }
-
-    // Function to assign grades based on Total Carbohydrate
-    function assignGrades() {
-      const table = document.getElementById("productTable");
-      const rows = Array.from(table.rows).slice(1); // Skip header row
-
-      let maxCarbs = -Infinity;
-
-      rows.forEach(row => {
-        const carbs = parseFloat(row.cells[3].innerText) || 0;
-        if (carbs > maxCarbs) maxCarbs = carbs;
-      });
-
-      rows.forEach(row => {
-        const carbs = parseFloat(row.cells[3].innerText) || 0;
-        if (carbs === maxCarbs) {
-          row.cells[1].innerText = "A";
-        } else {
-          const grade = carbs > 0 ? String.fromCharCode(65 + Math.ceil((maxCarbs - carbs) / 2)) : "E";
-          row.cells[1].innerText = grade;
-        }
-      });
-    }
-
-    // Function to view a specific pie chart
-    function viewPieChart(button) {
-      const row = button.parentElement.parentElement;
-      const cells = row.querySelectorAll("td:not(:last-child)");
-
-      const labels = ["Grade", "Protein Percentage", "Total Carbohydrate", "Calories Per Gram"];
-      const data = [
-        cells[1].innerText.charCodeAt(0) - 65, // Convert grade to a numeric value (A=0, B=1, etc.)
-        ...Array.from(cells).slice(2, 5).map(cell => parseFloat(cell.innerText) || 0)
-      ];
-
-      const productName = cells[0].innerText;
-
-      const ctx = document.getElementById("productChart").getContext("2d");
-      document.getElementById("chartContainer").style.display = "block";
-
-      if (pieChartInstance) {
-        pieChartInstance.destroy();
-      }
-
-      pieChartInstance = new Chart(ctx, {
-        type: "pie",
-        data: {
-          labels: labels,
-          datasets: [{
-            label: `Nutrition Metrics for ${productName}`,
-            data: data,
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.6)",
-              "rgba(54, 162, 235, 0.6)",
-              "rgba(255, 206, 86, 0.6)",
-              "rgba(75, 192, 192, 0.6)"
-            ],
-            borderColor: [
-              "rgba(255, 99, 132, 1)",
-              "rgba(54, 162, 235, 1)",
-              "rgba(255, 206, 86, 1)",
-              "rgba(75, 192, 192, 1)"
-            ],
-            borderWidth: 1
-          }]
         }
       });
     }

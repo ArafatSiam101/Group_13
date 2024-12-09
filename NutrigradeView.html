@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Nutrition Dashboard</title>
+  <link rel="stylesheet" href="NutritionistGrade.css"> <!-- Link to external CSS -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> <!-- Chart.js Library -->
+</head>
+
+<body>
+  <h1>NutritionistGrade</h1>
+  <table id="productTable">
+    <tr>
+      <th>Product Name</th>
+      <th>Grade</th>
+      <th>Protein Percentage</th>
+      <th>Total Carbohydrate</th>
+      <th>Calories Per Gram</th>
+      <th>Actions</th>
+    </tr>
+    <!-- Predefined products -->
+    <tr>
+      <td>Carrot</td>
+      <td></td>
+      <td>12</td>
+      <td>7</td>
+      <td>40</td>
+      <td>
+        <button class="btn btn-view" onclick="viewPieChart(this)">View</button>
+      </td>
+    </tr>
+    <tr>
+      <td>Capsicum</td>
+      <td></td>
+      <td>10</td>
+      <td>6</td>
+      <td>35</td>
+      <td>
+        <button class="btn btn-view" onclick="viewPieChart(this)">View</button>
+      </td>
+    </tr>
+    <tr>
+      <td>Broccoli</td>
+      <td></td>
+      <td>14</td>
+      <td>5</td>
+      <td>45</td>
+      <td>
+        <button class="btn btn-view" onclick="viewPieChart(this)">View</button>
+      </td>
+    </tr>
+    <tr>
+      <td>Spinach</td>
+      <td></td>
+      <td>11</td>
+      <td>8</td>
+      <td>30</td>
+      <td>
+        <button class="btn btn-view" onclick="viewPieChart(this)">View</button>
+      </td>
+    </tr>
+    <tr>
+      <td>Cucumber</td>
+      <td></td>
+      <td>8</td>
+      <td>7</td>
+      <td>20</td>
+      <td>
+        <button class="btn btn-view" onclick="viewPieChart(this)">View</button>
+      </td>
+    </tr>
+  </table>
+  <button onclick="assignGrades()">Assign Grades</button>
+
+  <!-- Pie Chart Section -->
+  <div style="width: 40%; margin: 20px auto; display: none;" id="chartContainer">
+    <canvas id="productChart" width="300" height="300"></canvas> <!-- Set fixed width and height -->
+  </div>
+
+  <script>
+    let pieChartInstance;
+
+    // Function to assign grades based on Total Carbohydrate
+    function assignGrades() {
+      const table = document.getElementById("productTable");
+      const rows = Array.from(table.rows).slice(1); // Skip header row
+
+      let maxCarbs = -Infinity;
+
+      rows.forEach(row => {
+        const carbs = parseFloat(row.cells[3].innerText) || 0;
+        if (carbs > maxCarbs) maxCarbs = carbs;
+      });
+
+      rows.forEach(row => {
+        const carbs = parseFloat(row.cells[3].innerText) || 0;
+        if (carbs === maxCarbs) {
+          row.cells[1].innerText = "A";
+        } else {
+          const grade = carbs > 0 ? String.fromCharCode(65 + Math.ceil((maxCarbs - carbs) / 2)) : "E";
+          row.cells[1].innerText = grade;
+        }
+      });
+    }
+
+    // Function to view a specific pie chart
+    function viewPieChart(button) {
+      const row = button.parentElement.parentElement;
+      const cells = row.querySelectorAll("td:not(:last-child)");
+
+      const labels = ["Grade", "Protein Percentage", "Total Carbohydrate", "Calories Per Gram"];
+      const data = [
+        cells[1].innerText.charCodeAt(0) - 65, // Convert grade to a numeric value (A=0, B=1, etc.)
+        ...Array.from(cells).slice(2, 5).map(cell => parseFloat(cell.innerText) || 0)
+      ];
+
+      const productName = cells[0].innerText;
+
+      const ctx = document.getElementById("productChart").getContext("2d");
+      document.getElementById("chartContainer").style.display = "block";
+
+      if (pieChartInstance) {
+        pieChartInstance.destroy();
+      }
+
+      pieChartInstance = new Chart(ctx, {
+        type: "pie",
+        data: {
+          labels: labels,
+          datasets: [{
+            label: `Nutrition Metrics for ${productName}`,
+            data: data,
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.6)",
+              "rgba(54, 162, 235, 0.6)",
+              "rgba(255, 206, 86, 0.6)",
+              "rgba(75, 192, 192, 0.6)"
+            ],
+            borderColor: [
+              "rgba(255, 99, 132, 1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(75, 192, 192, 1)"
+            ],
+            borderWidth: 1
+          }]
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
