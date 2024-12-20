@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="addProductstyle.css">
+</head>
+<body>
+
+
+<nav>
+    <ul>
+      <!-- About Dropdown -->
+      <li class="dropdown">
+        <button>About</button>
+        <div class="dropdown-menu">
+          <a href="#">Our Team</a>
+          <a href="#">Mission</a>
+          <a href="#">Contact Us</a>
+        </div>
+      </li>
+
+      <li class="dropdown">
+        <button>Home</button>
+      </li>
+
+      <!-- Product Dropdown -->
+      <li class="dropdown">
+        <button>Product</button>
+        <div class="dropdown-menu">
+          <a href="#">Add Product</a>
+          <a href="#">View Products</a>
+          <a href="#">Product History</a>
+        </div>
+      </li>
+
+      <li class="dropdown">
+
+      <li class="dropdown">
+        <button>Report</button>
+        <div class="dropdown-menu">
+          <a href="#">Sales Report</a>
+          <a href="#">Supply chain Report</a>
+        </div>
+      </li>
+
+      <li class="dropdown">
+        <button>Settings</button>
+      </li>
+
+      <li class="dropdown">
+        <button>Help</button>
+      </li>
+
+      <li class="dropdown">
+        <button>Logout </button>
+      </li>
+
+    </ul>
+  </nav>
+
+<div class="container">
+    <h2>Add New Product</h2>
+
+    <form action="#" method="POST" class="product-form">
+        <label for="productName">Product Name:</label>
+        <input type="text" id="productName" name="productName" placeholder="Enter product name" required>
+
+        <label for="quantity">Quantity (kg):</label>
+        <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" required>
+
+        <label for="qualityGrade">Quality Grade:</label>
+        <select id="qualityGrade" name="qualityGrade" required>
+            <option value="">Select grade</option>
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+        </select>
+
+        <label for="harvestDate">Harvest Date:</label>
+        <input type="date" id="harvestDate" name="harvestDate" required>
+
+        <label for="remarks">Remarks:</label>
+        <textarea id="remarks" name="remarks" placeholder="Add any remarks about the product..."></textarea>
+
+        <button type="submit" class="btn">Add Product</button>
+    </form>
+</div>
+
+</body>
+</html>

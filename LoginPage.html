@@ -6,6 +6,7 @@
   <title>Login Page</title>
   <link rel="stylesheet" href="LoginPage.css">
   <script src="https://kit.fontawesome.com/c06c1f7e4d.js" crossorigin="anonymous"></script>
+  <script src="LoginPage.js"></script>
 </head>
 
 <body>
@@ -28,9 +29,11 @@
             <i class="fa-solid fa-users"></i>
             <select id="userRole" required>
               <option value="">Select Role</option>
-              <option value="Consumer">Consumer</option>
+              <option value="Customer">Customer</option>
               <option value="Nutritionists">Nutritionists</option>
-              <option value="Inspector">Inspector</option>
+              <option value="TransportCoordinator">Transport Coordinator</option>
+              <option value="Farmer">Farmer</option>
+              <option value="Admin">Admin</option>
             </select>
           </div>
 
@@ -42,23 +45,7 @@
       </form>
     </div>
   </div>
-  <script>
-    let loginBtn = document.getElementById("loginBtn");
-    let userRole = document.getElementById("userRole");
 
-    loginBtn.onclick = function () {
-      let selectedRole = userRole.value;
-      if (selectedRole === "Inspector") {
-        window.location.href = ".html"; // Redirect to LogoutPage for Inspector
-      } else if (selectedRole === "Consumer") {
-        window.location.href = "consumer.html"; // Redirect to LogoutPage for Consumer
-      } else if (selectedRole === "Nutritionists") {
-        window.location.href = "Nutritionist.html"; // Redirect to LogoutPage for Nutritionists
-      } else {
-        alert("Please select a role to log in.");
-      }
-    }
-  </script>
 </body>
 
 </html>
